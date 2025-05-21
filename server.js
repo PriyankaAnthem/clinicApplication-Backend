@@ -30,8 +30,8 @@ app.use(cookieParser());
 // CORS configuration
 const allowedOrigins = [
   "http://localhost:3000", // Local frontend
-  "https://clinic-booking-frontend.vercel.app", // Production frontend
-  "https://clinic-booking-frontend-priyankas-projects-e4c4504c.vercel.app", // Preview frontend
+  "https://clinic-application-vert.vercel.app", // Production frontend
+  "https://clinic-application-priyankas-projects-e4c4504c.vercel.app", // Preview frontend
 ];
 
 const corsOptions = {
