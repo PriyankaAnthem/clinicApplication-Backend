@@ -25,6 +25,9 @@ const userSchema = mongoose.Schema(
       enum: ["admin", "patient"], // Roles defined
       default: "patient",
     },
+    resetPasswordToken: { type: String },
+    resetPasswordExpires: { type: Date },
+
   },
   {
     timestamps: true,
@@ -32,14 +35,29 @@ const userSchema = mongoose.Schema(
 );
 
 // Encrypt password using bcrypt
-userSchema.pre("save", async function (next) {
+/*userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     next();
   }
 
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
+});*/
+
+
+
+// Encrypt password using bcrypt
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
+    return next(); // RETURN here to prevent further execution
+  }
+
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+
+  next();
 });
+
 
 // Sign JWT and return
 userSchema.methods.getSignedJwtToken = function () {

@@ -38,10 +38,10 @@ const getAppointmentById = asyncHandler(async (req, res) => {
 // @route   POST /api/appointments
 // @access  Private
 const createAppointment = asyncHandler(async (req, res) => {
-  const { doctorId, date, timeSlot, patientName, patientEmail, patientPhone } = req.body;
+  const { doctorId, date, timeSlot, patientName, patientEmail, patientPhone,healthConcern } = req.body;
 
   // Validate required fields
-  if (!doctorId || !date || !timeSlot || !patientName || !patientEmail || !patientPhone) {
+  if (!doctorId || !date || !timeSlot || !patientName || !patientEmail || !patientPhone || !healthConcern) {
     res.status(400);
     throw new Error("Missing required fields for appointment");
   }
@@ -85,6 +85,7 @@ const createAppointment = asyncHandler(async (req, res) => {
       patientName,
       patientEmail,
       patientPhone,
+      healthConcern,
     });
 
     if (appointment) {
@@ -171,7 +172,7 @@ const getAvailableTimeSlots = asyncHandler(async (req, res) => {
 
 const getDoctorAppointments = async (req, res) => {
   console.log("Doctor appointments route hit");
-  console.log("🩺 Authenticated doctor (req.user):", req.user);
+  console.log(" Authenticated doctor (req.user):", req.user);
 
   if (!req.user || !req.user._id) {
     console.error(" req.user or req.user._id missing!");
@@ -197,7 +198,7 @@ const updateAppointmentStatus = async (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
 
-  if (!['approved', 'rejected'].includes(status)) {
+  if (!['Approved', 'Rejected'].includes(status)) {
     return res.status(400).json({ message: 'Invalid status value.' });
   }
 
@@ -236,7 +237,7 @@ const rescheduleAppointment = asyncHandler(async (req, res) => {
 
   appointment.date = date;
   appointment.timeSlot = timeSlot;
-  appointment.status = "rescheduled";
+  appointment.status = "Rescheduled";
 
   const updated = await appointment.save();
   res.json(updated);

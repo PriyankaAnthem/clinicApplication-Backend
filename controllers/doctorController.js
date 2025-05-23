@@ -228,13 +228,11 @@ const deleteDoctor = asyncHandler(async (req, res) => {
   }
 })
 
-
-
 const resetPassword = async (req, res) => {
   try {
-    console.log(" Reset password endpoint called");
+   /* console.log(" Reset password endpoint called");
     console.log("Token from params:", req.params.token);
-    console.log("New password from body:", req.body.newPassword);
+    console.log("New password from body:", req.body.newPassword);*/
 
     let decodedToken;
     try {

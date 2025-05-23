@@ -22,8 +22,8 @@ const appointmentSchema = mongoose.Schema(
     },
      status: {
     type: String,
-    enum: ['pending', 'approved', 'rejected','rescheduled'],
-    default: 'pending',
+    enum: ['Pending', 'Approved', 'Rejected','Rescheduled'],
+    default: 'Pending',
   },
     patientName: {
       type: String,
@@ -36,6 +36,10 @@ const appointmentSchema = mongoose.Schema(
     patientPhone: {
       type: String,
       required: [true, "Please add a patient phone number"],
+    },
+     healthConcern: {
+      type: String,
+      required: [true, "Please add health concern details"],
     },
   },
   {
