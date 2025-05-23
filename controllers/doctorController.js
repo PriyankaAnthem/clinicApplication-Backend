@@ -118,18 +118,6 @@ const createDoctor = async (req, res) => {
       return res.status(400).json({ message: "Doctor with this email already exists" });
     }
 
-    // Hash the password manually (in case it wasn't hashed in the pre-save hook)
-    /*const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    // Create the doctor with the hashed password
-    const doctor = await Doctor.create({
-      name,
-      specialty,
-      email,
-      password: hashedPassword, // Use the hashed password here
-    });*/
-
      const doctor = await Doctor.create({
       name,
       specialty,
@@ -230,10 +218,6 @@ const deleteDoctor = asyncHandler(async (req, res) => {
 
 const resetPassword = async (req, res) => {
   try {
-   /* console.log(" Reset password endpoint called");
-    console.log("Token from params:", req.params.token);
-    console.log("New password from body:", req.body.newPassword);*/
-
     let decodedToken;
     try {
       decodedToken = jwt.verify(req.params.token, process.env.JWT_SECRET);

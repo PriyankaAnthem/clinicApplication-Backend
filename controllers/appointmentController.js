@@ -193,6 +193,22 @@ const getDoctorAppointments = async (req, res) => {
   }
 };
 
+
+
+const getAppointmentsByDoctor = async (req, res) => {
+  try {
+    const appointments = await Appointment.find({ doctor: req.params.doctorId })
+      .select('patientName date  timeSlot status')
+      .lean();
+
+    res.json(appointments);
+  } catch (error) {
+    console.error('Error fetching appointments by doctor:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+
 // Update appointment status (doctor only)
 const updateAppointmentStatus = async (req, res) => {
   const { id } = req.params;
@@ -252,6 +268,7 @@ module.exports = {
   cancelAppointment,
   getAvailableTimeSlots,
   getDoctorAppointments,
+  getAppointmentsByDoctor,
   updateAppointmentStatus,
   rescheduleAppointment,
 }
