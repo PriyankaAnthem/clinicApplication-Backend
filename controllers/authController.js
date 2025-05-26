@@ -9,12 +9,27 @@ const logout = asyncHandler(async (req, res) => {
   sameSite: 'strict',
 });*/
 
-res.clearCookie('authToken', {
+/*res.clearCookie('authToken', {
   httpOnly: true,
   secure: process.env.NODE_ENV === 'production',
   sameSite: 'strict',
   path: '/', // 
-});
+});*/
+
+
+//new added
+res.cookie("authToken", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+    path: "/",    //added
+   
+  });
+
+
+
+
+
 res.status(200).json({ message: 'Logged out successfully' });
 });
 

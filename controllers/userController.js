@@ -137,11 +137,22 @@ const loginUser = asyncHandler(async (req, res) => {
   const token = user.getSignedJwtToken();
   console.log("JWT token generated");
 
+
+  // Set token in cookie
+  /*res.cookie("authToken", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+  });*/
+
+  //new added
   // Set token in cookie
   res.cookie("authToken", token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+    path: "/",    //added
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 
