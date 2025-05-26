@@ -18,14 +18,12 @@ const logout = asyncHandler(async (req, res) => {
 
 
 //new added
-res.cookie("authToken", {
+ res.clearCookie("authToken", {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
-    path: "/",    //added
-   
+    path: "/",
   });
-
 
 
 
